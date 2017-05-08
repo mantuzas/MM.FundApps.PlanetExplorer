@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MM.FundApps.PlanetExplorer.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8D7E38C8-28E9-41D2-A36B-D3F0F65823D0}"
 	ProjectSection(SolutionItems) = preProject
+		.travis.yml = .travis.yml
+		build.sh = build.sh
 		Readme.md = Readme.md
 	EndProjectSection
 EndProject

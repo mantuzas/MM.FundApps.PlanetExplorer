@@ -1,0 +1,8 @@
+language: csharp
+mono: none
+dotnet: 1.0.1
+solution: MM.FundApps.PlanetExplorer.sln
+dist: trusty
+sudo: required
+script:
+    - ./build.sh

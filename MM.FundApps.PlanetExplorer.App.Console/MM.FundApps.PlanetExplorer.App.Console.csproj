@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MM.FundApps.PlanetExplorer.Robot.Abstractions\MM.FundApps.PlanetExplorer.Robot.Abstractions.csproj" />
+    <ProjectReference Include="..\MM.FundApps.PlanetExplorer.Robot\MM.FundApps.PlanetExplorer.Robot.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -8,6 +8,8 @@
 **Frameworks:**
 * .net core 1.1
 * xunit 2.2.0
+* FluentAssertions 4.19
+* NSubstitute 2.0.3
 
 **Startup project:**
 * MM.FundApps.PlanetExplorer.App.Console

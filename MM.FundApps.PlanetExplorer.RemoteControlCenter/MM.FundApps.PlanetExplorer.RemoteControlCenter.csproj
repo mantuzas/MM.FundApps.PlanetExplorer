@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MM.FundApps.PlanetExplorer.RemoteControlCenter.Abstractions\MM.FundApps.PlanetExplorer.RemoteControlCenter.Abstractions.csproj" />
+    <ProjectReference Include="..\MM.FundApps.PlanetExplorer.Robot.Abstractions\MM.FundApps.PlanetExplorer.Robot.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

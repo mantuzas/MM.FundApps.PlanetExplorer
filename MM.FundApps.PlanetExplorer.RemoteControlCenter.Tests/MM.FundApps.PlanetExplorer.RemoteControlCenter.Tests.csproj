@@ -1,15 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
+  <PropertyGroup>    
     <TargetFramework>netcoreapp1.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0" />
+    <PackageReference Include="xunit" Version="2.2.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MM.FundApps.PlanetExplorer.RemoteControlCenter.Abstractions\MM.FundApps.PlanetExplorer.RemoteControlCenter.Abstractions.csproj" />
     <ProjectReference Include="..\MM.FundApps.PlanetExplorer.RemoteControlCenter\MM.FundApps.PlanetExplorer.RemoteControlCenter.csproj" />
-    <ProjectReference Include="..\MM.FundApps.PlanetExplorer.Robot.Abstractions\MM.FundApps.PlanetExplorer.Robot.Abstractions.csproj" />
-    <ProjectReference Include="..\MM.FundApps.PlanetExplorer.Robot\MM.FundApps.PlanetExplorer.Robot.csproj" />
   </ItemGroup>
 
 </Project>

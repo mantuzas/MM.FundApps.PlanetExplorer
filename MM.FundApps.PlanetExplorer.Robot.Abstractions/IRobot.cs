@@ -6,6 +6,8 @@
 
         bool MoveBackward();
 
+        void TurnRight();
+
         Pose GetPose();
     }
 }

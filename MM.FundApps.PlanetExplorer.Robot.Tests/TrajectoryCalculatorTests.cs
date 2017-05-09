@@ -137,5 +137,59 @@ namespace MM.FundApps.PlanetExplorer.Robot.Tests
                 AssertPose(expected, actual);
             }
         }
+
+        public class CalculateRight : TrajectoryCalculatorBaseTests
+        {
+            [Fact]
+            public void WhenEastAndTurnRight_DirectionShouldBeSouth()
+            {
+                var currentPose = new Pose(new Position(0, 0), CardinalDirection.East);
+                var expected = new Pose(new Position(0, 0), CardinalDirection.South);
+
+                var actual = TrajectoryCalculator.CalculateRight(currentPose);
+
+                AssertPose(expected, actual);
+            }
+
+            [Fact]
+            public void WhenNonExistingDirection_ThrowsException()
+            {
+                var currentPose = new Pose(new Position(0, 0), (CardinalDirection)(-1));
+                Assert.Throws<NotSupportedException>(() => TrajectoryCalculator.CalculateRight(currentPose));
+            }
+
+            [Fact]
+            public void WhenNorthAndTurnRight_DirectionShouldBeEast()
+            {
+                var currentPose = new Pose(new Position(0, 0), CardinalDirection.North);
+                var expected = new Pose(new Position(0, 0), CardinalDirection.East);
+
+                var actual = TrajectoryCalculator.CalculateRight(currentPose);
+
+                AssertPose(expected, actual);
+            }
+
+            [Fact]
+            public void WhenSouthAndTurnRight_DirectionShouldBeWest()
+            {
+                var currentPose = new Pose(new Position(0, 0), CardinalDirection.South);
+                var expected = new Pose(new Position(0, 0), CardinalDirection.West);
+
+                var actual = TrajectoryCalculator.CalculateRight(currentPose);
+
+                AssertPose(expected, actual);
+            }
+
+            [Fact]
+            public void WhenWestAndTurnRight_DirectionShouldBeNorth()
+            {
+                var currentPose = new Pose(new Position(0, 0), CardinalDirection.West);
+                var expected = new Pose(new Position(0, 0), CardinalDirection.North);
+
+                var actual = TrajectoryCalculator.CalculateRight(currentPose);
+
+                AssertPose(expected, actual);
+            }
+        }
     }
 }

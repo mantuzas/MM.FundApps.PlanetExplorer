@@ -65,5 +65,16 @@ namespace MM.FundApps.PlanetExplorer.Robot.Tests
                 actual.Position.Y.Should().Be(expectedPose.Position.Y);
             }
         }
+
+        public class TurnRight : RobotBaseTests
+        {
+            [Fact]
+            public void WhenTurnRight_ExpectsTurnRightExecuted()
+            {
+                Robot.TurnRight();
+
+                NavigationComponent.Received().TurnRight();
+            }
+        }
     }
 }

@@ -61,5 +61,22 @@ namespace MM.FundApps.PlanetExplorer.Robot.Tests
                 NavigationComponent.Pose.Should().Be(destination);
             }
         }
+
+        public class TurnRight : NavigationComponentBaseTests
+        {
+            [Fact]
+            public void WhenTurns_PoseChanges()
+            {
+                var destination = new Pose(new Position(0, 0), CardinalDirection.East);
+
+                TrajectoryCalculator.CalculateRight(Pose).Returns(destination);
+
+                NavigationComponent.TurnRight();
+
+                TrajectoryCalculator.Received().CalculateRight(Pose);
+
+                NavigationComponent.Pose.Should().Be(destination);
+            }
+        }
     }
 }

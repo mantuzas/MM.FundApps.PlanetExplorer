@@ -54,5 +54,30 @@ namespace MM.FundApps.PlanetExplorer.Robot
 
             return new Pose(position, currentPose.CardinalDirection);
         }
+
+        public Pose CalculateRight(Pose currentPose)
+        {
+            CardinalDirection cardinalDirection;
+
+            switch (currentPose.CardinalDirection)
+            {
+                case CardinalDirection.North:
+                    cardinalDirection = CardinalDirection.East;
+                    break;
+                case CardinalDirection.East:
+                    cardinalDirection = CardinalDirection.South;
+                    break;
+                case CardinalDirection.South:
+                    cardinalDirection = CardinalDirection.West;
+                    break;
+                case CardinalDirection.West:
+                    cardinalDirection = CardinalDirection.North;
+                    break;
+                default:
+                    throw new NotSupportedException();
+            }
+
+            return new Pose(currentPose.Position, cardinalDirection);
+        }
     }
 }

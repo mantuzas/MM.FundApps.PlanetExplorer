@@ -6,23 +6,38 @@ namespace MM.FundApps.PlanetExplorer.Robot
     {
         protected readonly ITrajectoryCalculator TrajectoryCalculator;
 
-        public NavigationComponent(Pose homePose, ITrajectoryCalculator trajectoryCalculator)
+        protected readonly INavigationSystem NavigationSystem;
+
+        public NavigationComponent(Pose homePose, 
+            ITrajectoryCalculator trajectoryCalculator,
+            INavigationSystem navigationSystem)
         {
             Pose = homePose;
             TrajectoryCalculator = trajectoryCalculator;
+            NavigationSystem = navigationSystem;
         }
 
         public Pose Pose { get; private set; }
 
         public bool MoveForward()
         {
-            Pose = TrajectoryCalculator.CalculateForward(Pose);
+            var pose = TrajectoryCalculator.CalculateForward(Pose);
+
+            if (!NavigationSystem.CanNavigate(pose.Position))
+                return false;
+
+            Pose = pose;
             return true;
         }
 
         public bool MoveBackward()
         {
-            Pose = TrajectoryCalculator.CalculateBackward(Pose);
+            var pose = TrajectoryCalculator.CalculateBackward(Pose);
+
+            if (!NavigationSystem.CanNavigate(pose.Position))
+                return false;
+
+            Pose = pose;
             return true;
         }
 

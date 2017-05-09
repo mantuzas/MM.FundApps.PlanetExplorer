@@ -31,7 +31,12 @@ namespace MM.FundApps.PlanetExplorer.RemoteControlCenter
 
                 foreach (var command in commands)
                 {
-                    command.Execute(Robot);
+                    var executed = command.Execute(Robot);
+                    if (!executed)
+                    {
+                        HardwareOutputDevice.Output("Stopped. Obstacle detected.");
+                        break;
+                    }
                 }
 
                 var lastPose = Robot.GetPose();

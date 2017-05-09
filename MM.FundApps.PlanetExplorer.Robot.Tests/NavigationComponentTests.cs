@@ -11,6 +11,7 @@ namespace MM.FundApps.PlanetExplorer.Robot.Tests
         {
             protected Pose Pose;
             protected NavigationComponent NavigationComponent;
+            protected INavigationSystem NavigationSystem;
 
             protected ITrajectoryCalculator TrajectoryCalculator;
 
@@ -18,9 +19,12 @@ namespace MM.FundApps.PlanetExplorer.Robot.Tests
             {
                 Pose = new Pose();
                 TrajectoryCalculator = Substitute.For<ITrajectoryCalculator>();
+                NavigationSystem = Substitute.For<INavigationSystem>();
+
                 NavigationComponent
                     = new NavigationComponent(Pose,
-                        TrajectoryCalculator);
+                        TrajectoryCalculator,
+                        NavigationSystem);
             }
         }
 
@@ -33,13 +37,35 @@ namespace MM.FundApps.PlanetExplorer.Robot.Tests
 
                 TrajectoryCalculator.CalculateForward(Pose).Returns(destination);
 
+                NavigationSystem.CanNavigate(destination.Position).Returns(true);
+
                 var moved = NavigationComponent.MoveForward();
 
                 TrajectoryCalculator.Received().CalculateForward(Pose);
+                NavigationSystem.Received().CanNavigate(destination.Position);
 
                 moved.Should().BeTrue();
 
                 NavigationComponent.Pose.Should().Be(destination);
+            }
+
+            [Fact]
+            public void WhenCannotMove_PoseStaysSame()
+            {
+                var destination = new Pose(new Position(0, 1), CardinalDirection.North);
+
+                TrajectoryCalculator.CalculateForward(Pose).Returns(destination);
+
+                NavigationSystem.CanNavigate(destination.Position).Returns(false);
+
+                var moved = NavigationComponent.MoveForward();
+
+                TrajectoryCalculator.Received().CalculateForward(Pose);
+                NavigationSystem.Received().CanNavigate(destination.Position);
+
+                moved.Should().BeFalse();
+
+                NavigationComponent.Pose.Should().Be(Pose);
             }
         }
 
@@ -51,14 +77,35 @@ namespace MM.FundApps.PlanetExplorer.Robot.Tests
                 var destination = new Pose(new Position(0, -1), CardinalDirection.North);
 
                 TrajectoryCalculator.CalculateBackward(Pose).Returns(destination);
+                NavigationSystem.CanNavigate(destination.Position).Returns(true);
 
                 var moved = NavigationComponent.MoveBackward();
 
                 TrajectoryCalculator.Received().CalculateBackward(Pose);
+                NavigationSystem.Received().CanNavigate(destination.Position);
 
                 moved.Should().BeTrue();
 
                 NavigationComponent.Pose.Should().Be(destination);
+            }
+
+            [Fact]
+            public void WhenCannotMove_PoseStaysSame()
+            {
+                var destination = new Pose(new Position(0, -1), CardinalDirection.North);
+
+                TrajectoryCalculator.CalculateBackward(Pose).Returns(destination);
+
+                NavigationSystem.CanNavigate(destination.Position).Returns(false);
+
+                var moved = NavigationComponent.MoveBackward();
+
+                TrajectoryCalculator.Received().CalculateBackward(Pose);
+                NavigationSystem.Received().CanNavigate(destination.Position);
+
+                moved.Should().BeFalse();
+
+                NavigationComponent.Pose.Should().Be(Pose);
             }
         }
 

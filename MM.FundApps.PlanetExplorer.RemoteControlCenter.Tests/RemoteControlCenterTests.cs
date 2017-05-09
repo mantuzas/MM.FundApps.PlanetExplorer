@@ -84,7 +84,40 @@ namespace MM.FundApps.PlanetExplorer.RemoteControlCenter.Tests
 
                 HardwareOutputDevice.Received().Output($"Exiting.");
             }
-            
+
+            [Fact]
+            public void WhenCommandsAndCannotMove_RobotMovesToLastPoint()
+            {
+                var homePose = new Pose();
+                Robot.GetPose().Returns(homePose);
+
+                var command = Substitute.For<ICommand>();
+                command.Cmd.Returns('F');
+
+                RobotCommandController.ReadCommands().Returns(new List<ICommand> { command });
+
+                var robot = Substitute.For<IRobot>();
+                command.Execute(robot).Returns(false);
+
+                // Act
+                RemoteControlCenter.Execute();
+
+                HardwareOutputDevice.Received().Output("Enter command:");
+
+                Robot.Received().GetPose();
+                HardwareOutputDevice.Received().Output($"Home pose X: {homePose.Position.X}, Y: {homePose.Position.Y}, Direction: {homePose.CardinalDirection}");
+                RobotCommandController.Received().ReadCommands();
+
+                HardwareOutputDevice.Received().Output("Stopped. Obstacle detected.");
+
+                var lastPose = homePose;
+
+                Robot.Received().GetPose();
+                HardwareOutputDevice.Received().Output($"Last pose X: {lastPose.Position.X}, Y: {lastPose.Position.Y}, Direction: {lastPose.CardinalDirection}");
+
+                HardwareOutputDevice.Received().Output($"Exiting.");
+            }
+
             [Fact]
             public void WhenCommandsAndCanMove_RobotMoves()
             {

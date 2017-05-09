@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using MM.FundApps.PlanetExplorer.RemoteControlCenter;
 using MM.FundApps.PlanetExplorer.RemoteControlCenter.Abstractions;
 using MM.FundApps.PlanetExplorer.Robot;
@@ -14,7 +15,12 @@ namespace MM.FundApps.PlanetExplorer.App.Console
         private static void Main(string[] args)
         {
             var serviceCollection = new ServiceCollection();
-           
+
+            var planetOptions = Options.Create(new PlanetOptions()
+            {
+                PlanetBoundary = new PlanetBoundary(-1, 11, -1, 11)
+            });
+
             // Robot
             serviceCollection
                 .AddScoped<ICommand, MoveForwardCommand>()
@@ -23,9 +29,12 @@ namespace MM.FundApps.PlanetExplorer.App.Console
                 .AddScoped<ICommand, TurnLeftCommand>()
                 .AddScoped(sp => sp.GetServices<ICommand>().ToArray())
                 .AddScoped<IRobotCommandFactory, RobotCommandFactory>()
+                .AddSingleton(planetOptions)
                 .AddSingleton<Pose>(new Pose(new Position(0, 0), CardinalDirection.North))
                 .AddScoped<ITrajectoryCalculator, TrajectoryCalculator>()
                 .AddScoped<INavigationComponent, NavigationComponent>()
+                .AddScoped<INavigationSystem, NavigationSystem>()
+                .AddScoped<IPlanet, Planet>()
                 .AddScoped<IRobot, Robot.Robot>();
 
             // RemoteControlCenter

@@ -13,7 +13,10 @@ namespace MM.FundApps.PlanetExplorer.Robot
 
         public bool CanNavigate(Position position)
         {
-            return Planet.InPlanet(position);
+            if (!Planet.InPlanet(position))
+                return false;
+
+            return !Planet.IsObstacle(position);
         }
     }
 }

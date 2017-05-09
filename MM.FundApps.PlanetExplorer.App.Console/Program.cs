@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using MM.FundApps.PlanetExplorer.RemoteControlCenter;
@@ -18,7 +19,11 @@ namespace MM.FundApps.PlanetExplorer.App.Console
 
             var planetOptions = Options.Create(new PlanetOptions()
             {
-                PlanetBoundary = new PlanetBoundary(-1, 11, -1, 11)
+                PlanetBoundary = new PlanetBoundary(-1, 11, -1, 11),
+                Obstacles = new List<Position>()
+                {
+                    new Position(1, 1)
+                }
             });
 
             // Robot

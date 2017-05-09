@@ -44,6 +44,33 @@ namespace MM.FundApps.PlanetExplorer.Robot.Tests
                 Planet.Received().InPlanet(position);
                 canNavigate.Should().BeTrue();
             }
+
+            [Fact]
+            public void WhenNextHasObstacle_CannotNavigate()
+            {
+                var position = new Position();
+                Planet.InPlanet(position).Returns(true);
+                Planet.IsObstacle(position).Returns(true);
+
+                var canNavigate = NavigationSystem.CanNavigate(position);
+
+                Planet.Received().InPlanet(position);
+                canNavigate.Should().BeFalse();
+            }
+
+            [Fact]
+            public void WhenInPlanetAndNoObstacle_CanNavigate()
+            {
+                var position = new Position();
+                Planet.InPlanet(position).Returns(true);
+                Planet.IsObstacle(position).Returns(false);
+
+                var canNavigate = NavigationSystem.CanNavigate(position);
+
+                Planet.Received().InPlanet(position);
+                Planet.Received().IsObstacle(position);
+                canNavigate.Should().BeTrue();
+            }
         }
     }
 }

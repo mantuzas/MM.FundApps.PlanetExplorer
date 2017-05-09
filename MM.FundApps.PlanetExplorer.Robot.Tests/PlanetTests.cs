@@ -63,5 +63,32 @@ namespace MM.FundApps.PlanetExplorer.Robot.Tests
                 inbound.Should().BeTrue();
             }
         }
+
+        public class IsObstacle : PlanetBaseTests
+        {
+            public IsObstacle()
+            {
+                PlanetOptions.Value.Obstacles = new List<Position>()
+                {
+                    new Position(1, 2)
+                };
+
+                Planet = new Planet(PlanetOptions);
+            }
+
+            [Fact]
+            public void WhenIsObstacle_DetectsObstacle()
+            {
+                var isObstacle = Planet.IsObstacle(new Position(1, 2));
+                isObstacle.Should().BeTrue();
+            }
+
+            [Fact]
+            public void WhenIsNotObstacle_DoesNotDetectObstacle()
+            {
+                var isObstacle = Planet.IsObstacle(new Position(2, 1));
+                isObstacle.Should().BeFalse();
+            }
+        }
     }
 }

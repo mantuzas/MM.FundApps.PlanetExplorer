@@ -2,6 +2,10 @@
 
 [![Build Status](https://travis-ci.org/mantuzas/MM.FundApps.PlanetExplorer.svg?branch=master)](https://travis-ci.org/mantuzas/MM.FundApps.PlanetExplorer)
 
+
+**[Terminology](Terminology.md)**
+
+
 **Tools:**
 * Visual Studio 2017
 

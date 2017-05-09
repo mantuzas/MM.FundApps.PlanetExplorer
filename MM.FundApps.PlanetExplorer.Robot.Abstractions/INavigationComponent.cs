@@ -9,5 +9,7 @@ namespace MM.FundApps.PlanetExplorer.Robot.Abstractions
         Pose Pose { get; }
 
         bool MoveForward();
+
+        bool MoveBackward();
     }
 }

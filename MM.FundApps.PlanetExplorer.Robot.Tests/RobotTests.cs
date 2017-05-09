@@ -34,6 +34,21 @@ namespace MM.FundApps.PlanetExplorer.Robot.Tests
             }
         }
 
+        public class MoveBackward : RobotBaseTests
+        {
+            [Fact]
+            public void WhenMoveBackward_ExpectsMoveBackwardExecuted()
+            {
+                NavigationComponent.MoveBackward().Returns(true);
+
+                var moved = Robot.MoveBackward();
+
+                moved.Should().BeTrue();
+
+                NavigationComponent.Received().MoveBackward();
+            }
+        }
+
         public class GetPose : RobotBaseTests
         {
             [Fact]

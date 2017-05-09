@@ -16,6 +16,11 @@ namespace MM.FundApps.PlanetExplorer.Robot
             return NavigationComponent.MoveForward();
         }
 
+        public bool MoveBackward()
+        {
+            return NavigationComponent.MoveBackward();
+        }
+
         public Pose GetPose()
         {
             return NavigationComponent.Pose;

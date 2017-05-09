@@ -19,5 +19,11 @@ namespace MM.FundApps.PlanetExplorer.Robot
             Pose = TrajectoryCalculator.CalculateForward(Pose);
             return true;
         }
+
+        public bool MoveBackward()
+        {
+            Pose = TrajectoryCalculator.CalculateBackward(Pose);
+            return true;
+        }
     }
 }

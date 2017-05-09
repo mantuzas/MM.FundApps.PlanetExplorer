@@ -18,6 +18,7 @@ namespace MM.FundApps.PlanetExplorer.App.Console
             // Robot
             serviceCollection
                 .AddScoped<ICommand, MoveForwardCommand>()
+                .AddScoped<ICommand, MoveBackwardCommand>()
                 .AddScoped(sp => sp.GetServices<ICommand>().ToArray())
                 .AddScoped<IRobotCommandFactory, RobotCommandFactory>()
                 .AddSingleton<Pose>(new Pose(new Position(0, 0), CardinalDirection.North))

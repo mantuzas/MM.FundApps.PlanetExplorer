@@ -42,5 +42,24 @@ namespace MM.FundApps.PlanetExplorer.Robot.Tests
                 NavigationComponent.Pose.Should().Be(destination);
             }
         }
+
+        public class MoveBackward : NavigationComponentBaseTests
+        {
+            [Fact]
+            public void WhenMoveBackward_PoseChanges()
+            {
+                var destination = new Pose(new Position(0, -1), CardinalDirection.North);
+
+                TrajectoryCalculator.CalculateBackward(Pose).Returns(destination);
+
+                var moved = NavigationComponent.MoveBackward();
+
+                TrajectoryCalculator.Received().CalculateBackward(Pose);
+
+                moved.Should().BeTrue();
+
+                NavigationComponent.Pose.Should().Be(destination);
+            }
+        }
     }
 }

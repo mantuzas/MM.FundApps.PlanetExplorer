@@ -4,6 +4,8 @@
     {
         bool MoveForward();
 
+        bool MoveBackward();
+
         Pose GetPose();
     }
 }

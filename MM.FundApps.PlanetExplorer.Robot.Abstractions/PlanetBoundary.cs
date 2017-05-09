@@ -4,7 +4,15 @@ namespace MM.FundApps.PlanetExplorer.Robot.Abstractions
 {
     public class PlanetBoundary
     {
+        /// <summary>
+        /// Constructor for Configuration.
+        /// </summary>
+        public PlanetBoundary()
+        {
+        }
+
         public PlanetBoundary(int minX, int maxX, int minY, int maxY)
+            : this()
         {
             if (minX == maxX)
                 throw new ArgumentException("Coordinate system X coordinates can't be the same.",
@@ -21,12 +29,12 @@ namespace MM.FundApps.PlanetExplorer.Robot.Abstractions
             MaxY = Math.Max(minY, maxY);
         }
 
-        public int MinX { get; }
+        public int MinX { get; set; }
 
-        public int MaxX { get; }
+        public int MaxX { get; set; }
 
-        public int MinY { get; }
+        public int MinY { get; set; }
 
-        public int MaxY { get; }
+        public int MaxY { get; set; }
     }
 }

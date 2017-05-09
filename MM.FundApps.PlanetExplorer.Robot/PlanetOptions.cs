@@ -5,8 +5,8 @@ namespace MM.FundApps.PlanetExplorer.Robot
 {
     public class PlanetOptions
     {
-        public PlanetBoundary PlanetBoundary;
+        public PlanetBoundary PlanetBoundary { get; set; }
 
-        public IReadOnlyCollection<Position> Obstacles;
+        public List<Position> Obstacles { get; set; }
     }
 }

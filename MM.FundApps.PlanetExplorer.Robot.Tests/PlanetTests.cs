@@ -17,6 +17,7 @@ namespace MM.FundApps.PlanetExplorer.Robot.Tests
             public PlanetBaseTests()
             {
                 PlanetOptions = Substitute.For<IOptions<PlanetOptions>>();
+                PlanetOptions.Value.Returns(new PlanetOptions());
             }
         }
 

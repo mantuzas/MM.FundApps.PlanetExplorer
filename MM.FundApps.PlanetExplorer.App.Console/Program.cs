@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using MM.FundApps.PlanetExplorer.RemoteControlCenter;
@@ -13,10 +15,21 @@ namespace MM.FundApps.PlanetExplorer.App.Console
 {
     internal class Program
     {
+        public static IConfigurationRoot Configuration { get; set; }
+
         private static void Main(string[] args)
         {
-            var serviceCollection = new ServiceCollection();
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json");
 
+            Configuration = builder.Build();
+
+            var serviceCollection = new ServiceCollection();
+            serviceCollection.AddOptions();
+
+            /*
+            // Configuring PlanetOptions.
             var planetOptions = Options.Create(new PlanetOptions()
             {
                 PlanetBoundary = new PlanetBoundary(-1, 11, -1, 11),
@@ -25,6 +38,11 @@ namespace MM.FundApps.PlanetExplorer.App.Console
                     new Position(1, 1)
                 }
             });
+            serviceCollection.AddSingleton(planetOptions);
+            */
+
+            // Configuring PlanetOptions from Configuration file.
+            serviceCollection.Configure<PlanetOptions>(Configuration.GetSection("PlanetOptions"));
 
             // Robot
             serviceCollection
@@ -34,7 +52,6 @@ namespace MM.FundApps.PlanetExplorer.App.Console
                 .AddScoped<ICommand, TurnLeftCommand>()
                 .AddScoped(sp => sp.GetServices<ICommand>().ToArray())
                 .AddScoped<IRobotCommandFactory, RobotCommandFactory>()
-                .AddSingleton(planetOptions)
                 .AddSingleton<Pose>(new Pose(new Position(0, 0), CardinalDirection.North))
                 .AddScoped<ITrajectoryCalculator, TrajectoryCalculator>()
                 .AddScoped<INavigationComponent, NavigationComponent>()
@@ -54,6 +71,8 @@ namespace MM.FundApps.PlanetExplorer.App.Console
             // Execute
             var remoteControlCenter = serviceProvider.GetService<IRemoteControlCenter>();
             remoteControlCenter.Execute();
+
+            System.Console.ReadLine();
         }
     }
 }

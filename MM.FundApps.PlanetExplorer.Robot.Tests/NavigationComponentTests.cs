@@ -78,5 +78,22 @@ namespace MM.FundApps.PlanetExplorer.Robot.Tests
                 NavigationComponent.Pose.Should().Be(destination);
             }
         }
+
+        public class TurnLeft : NavigationComponentBaseTests
+        {
+            [Fact]
+            public void WhenTurns_PoseChanges()
+            {
+                var destination = new Pose(new Position(0, 0), CardinalDirection.West);
+
+                TrajectoryCalculator.CalculateLeft(Pose).Returns(destination);
+
+                NavigationComponent.TurnLeft();
+
+                TrajectoryCalculator.Received().CalculateLeft(Pose);
+
+                NavigationComponent.Pose.Should().Be(destination);
+            }
+        }
     }
 }

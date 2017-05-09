@@ -13,5 +13,7 @@ namespace MM.FundApps.PlanetExplorer.Robot.Abstractions
         bool MoveBackward();
 
         void TurnRight();
+
+        void TurnLeft();
     }
 }

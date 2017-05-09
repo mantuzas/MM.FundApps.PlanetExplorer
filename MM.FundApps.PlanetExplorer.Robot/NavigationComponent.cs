@@ -30,5 +30,10 @@ namespace MM.FundApps.PlanetExplorer.Robot
         {
             Pose = TrajectoryCalculator.CalculateRight(Pose);
         }
+
+        public void TurnLeft()
+        {
+            Pose = TrajectoryCalculator.CalculateLeft(Pose);
+        }
     }
 }

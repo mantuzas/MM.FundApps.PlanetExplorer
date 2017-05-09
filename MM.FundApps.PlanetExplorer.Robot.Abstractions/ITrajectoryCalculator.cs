@@ -7,5 +7,7 @@
         Pose CalculateBackward(Pose currentPose);
 
         Pose CalculateRight(Pose currentPose);
+
+        Pose CalculateLeft(Pose currentPose);
     }
 }

@@ -8,6 +8,8 @@
 
         void TurnRight();
 
+        void TurnLeft();
+
         Pose GetPose();
     }
 }

@@ -76,5 +76,18 @@ namespace MM.FundApps.PlanetExplorer.Robot.Tests
                 NavigationComponent.Received().TurnRight();
             }
         }
+
+        public class TurnLeft : RobotBaseTests
+        {
+            [Fact]
+            public void WhenTurnLeft_ExpectsTurnLeftExecuted()
+            {
+                NavigationComponent.TurnLeft();
+
+                Robot.TurnLeft();
+
+                NavigationComponent.Received().TurnLeft();
+            }
+        }
     }
 }

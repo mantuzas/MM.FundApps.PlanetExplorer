@@ -20,13 +20,13 @@ namespace MM.FundApps.PlanetExplorer.RemoteControlCenter
 
         public void Execute()
         {
+            var homePose = Robot.GetPose();
+
+            HardwareOutputDevice.Output($"Home pose X: {homePose.Position.X}, Y: {homePose.Position.Y}, Direction: {homePose.CardinalDirection}");
             HardwareOutputDevice.Output($"Enter command:");
 
             try
-            {
-                var homePose = Robot.GetPose();
-                HardwareOutputDevice.Output($"Home pose X: {homePose.Position.X}, Y: {homePose.Position.Y}, Direction: {homePose.CardinalDirection}");
-
+            {   
                 var commands = RobotCommandController.ReadCommands();
 
                 foreach (var command in commands)
